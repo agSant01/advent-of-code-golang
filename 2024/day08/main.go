@@ -14,16 +14,8 @@ type Antenna struct {
 	Frequency string
 }
 
-func (a Antenna) diff(a2 Antenna) Antenna {
-	return Antenna{a2.X - a.X, a2.Y - a.Y, a.Frequency}
-}
-
-func (a Antenna) mul(factor int) Antenna {
-	return Antenna{
-		a.X * factor,
-		a.Y * factor,
-		a.Frequency,
-	}
+func (a1 Antenna) diff(a2 Antenna) Antenna {
+	return Antenna{a1.X - a2.X, a1.Y - a2.Y, a1.Frequency}
 }
 
 func (a1 Antenna) Add(a2 Antenna) Antenna {
@@ -114,13 +106,13 @@ func exercise1(fieldMap [][]string, antennaMap map[string][]Antenna) int {
 					continue
 				}
 
-				diffVec1 := a1.diff(a2)
-				diffVec1.Frequency = "#"
-				diffVec1 = diffVec1.mul(2)
-				absAntiNode1 := a1.Add(diffVec1)
+				diffVec := a2.diff(a1)
+				diffVec.Frequency = "#"
+				diffVec = diffVec.Add(diffVec)
+				absAntiNode := a1.Add(diffVec)
 
-				if withinBounds(absAntiNode1, width, height) {
-					antiNodeMap[absAntiNode1] = true
+				if withinBounds(absAntiNode, width, height) {
+					antiNodeMap[absAntiNode] = true
 				}
 			}
 		}
@@ -143,25 +135,24 @@ func exercise2(fieldMap [][]string, antennaMap map[string][]Antenna) int {
 				if a1 == a2 {
 					continue
 				}
-				diffVec := a1.diff(a2)
+
+				diffVec := a2.diff(a1)
 				diffVec.Frequency = "#"
-				factor := 1
+				absAntiNode := a1.Add(diffVec)
 				for {
-					newResonance := diffVec.mul(factor)
-					absAntiNode := a1.Add(newResonance)
-					factor++
 					if withinBounds(absAntiNode, width, height) {
 						antiNodeMap[absAntiNode] = true
 					} else {
 						break
 					}
+					absAntiNode = absAntiNode.Add(diffVec)
 				}
 
 			}
 		}
 	}
 
-	printField(fieldMap, antiNodeMap)
+	// printField(fieldMap, antiNodeMap)
 
 	return len(antiNodeMap)
 }
