@@ -67,12 +67,12 @@ func create(day string, year string) {
 	file.WriteString(mainDeclaration)
 	file.Close()
 
-	_, err = os.Create(fmt.Sprintf("%s/data.txt", path))
+	_, err = os.Create(fmt.Sprintf("%s/data.in", path))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	_, err = os.Create(fmt.Sprintf("%s/data_test.txt", path))
+	_, err = os.Create(fmt.Sprintf("%s/data_test.in", path))
 	if err != nil {
 		log.Fatal(err)
 	}
