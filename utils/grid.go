@@ -2,6 +2,30 @@ package utils
 
 import "fmt"
 
+type Coord struct {
+	X int
+	Y int
+}
+
+func (c *Coord) Displaces(vector Coord) {
+	c.X += vector.X
+	c.Y += vector.Y
+}
+
+func (c *Coord) Add(vector Coord) Coord {
+	return Coord{
+		X: c.X + vector.X,
+		Y: c.Y + vector.Y,
+	}
+}
+
+func (c *Coord) Copy() Coord {
+	return Coord{
+		X: c.X,
+		Y: c.Y,
+	}
+}
+
 var ARROW_DIRECTIONS map[string]Coord = map[string]Coord{
 	">": {1, 0},
 	"v": {0, 1},

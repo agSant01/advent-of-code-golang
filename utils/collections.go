@@ -5,11 +5,6 @@ type Tuple[T1 any, T2 any] struct {
 	B T2
 }
 
-type Coord struct {
-	X int
-	Y int
-}
-
 // Pop removes and returns the last element of the slice
 func Pop[T1 any](slice *[]T1) T1 {
 	if len(*slice) == 0 {
