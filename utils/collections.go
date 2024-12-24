@@ -37,3 +37,15 @@ func Bool2Int(v bool) int {
 
 	return 0
 }
+
+func CopyMap[T1 comparable, T2 any](original map[T1]T2) map[T1]T2 {
+	// Create a new map
+	newMap := make(map[T1]T2)
+
+	// Copy each key-value pair from the original to the new map
+	for key, value := range original {
+		newMap[key] = value
+	}
+
+	return newMap
+}
