@@ -49,3 +49,21 @@ func CopyMap[T1 comparable, T2 any](original map[T1]T2) map[T1]T2 {
 
 	return newMap
 }
+
+func Any[T1 comparable](slice []T1, v T1) bool {
+	for _, v2 := range slice {
+		if v == v2 {
+			return true
+		}
+	}
+	return false
+}
+
+func All[T1 comparable](slice []T1, v T1) bool {
+	for _, v2 := range slice {
+		if v != v2 {
+			return false
+		}
+	}
+	return true
+}
